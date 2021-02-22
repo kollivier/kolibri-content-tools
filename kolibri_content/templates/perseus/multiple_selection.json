@@ -1,0 +1,69 @@
+{% load perseus_tags %}{% autoescape off %}{
+    "question": {
+        "content": "{{ question | jsonify   }}\n\n[[☃ radio 1]]",
+        "images": {{% for image in question_images %}
+            "{{ image.name }}": {
+                "width": {{ image.width }},
+                "height": {{ image.height }}
+            }{% if forloop.last %}{% else %},{% endif %}
+        {% endfor %}},
+        "widgets": {
+            "radio 1": {
+                "type": "radio",
+                "graded": true,
+                "options": {
+                    "choices": [{% for answer in answers %}
+                        {
+                            "correct": {% if answer.correct %}true{% else %}false{% endif %},
+                            "content": "{{ answer.answer | jsonify   }}",
+                            "images":{{% for image in answer.images %}
+                                "{{ image.name }}": {
+                                    "width": {{ image.width }},
+                                    "height": {{ image.height }}
+                                }{% if forloop.last %}{% else %},{% endif %}
+                            {% endfor %}}
+                        }{% if forloop.last %}{% else %},{% endif %}
+                    {% endfor %}],
+                    "randomize": {% if randomize %}true{% else %}false{% endif %},
+                    "multipleSelect": {% if multiple_select %}true{% else %}false{% endif %},
+                    "displayCount": null,
+                    "hasNoneOfTheAbove": false,
+                    "onePerLine": true,
+                    "deselectEnabled": false
+                },
+                "version": {
+                    "major": 1,
+                    "minor": 0
+                }
+            }
+        }
+    },
+    "answerArea": {
+        "type": "multiple",
+        "options": {
+            "content": "",
+            "images": {},
+            "widgets": {}
+        },
+        "calculator": false,
+        "periodicTable": false
+    },
+    "itemDataVersion": {
+        "major": 0,
+        "minor": 1
+    },
+    "hints": [{% for hint in hints %}
+        {
+            "widgets":{},
+            "images":{{% for image in hint.images %}
+                "{{ image.name }}": {
+                    "width": {{ image.width }},
+                    "height": {{ image.height }}
+                }{% if forloop.last %}{% else %},{% endif %}
+            {% endfor %}},
+            "content":"{{hint.hint | jsonify  }}",
+            "replace":false
+        }{% if forloop.last %}{% else %},{% endif %}
+    {% endfor %}]
+}
+{% endautoescape %}
