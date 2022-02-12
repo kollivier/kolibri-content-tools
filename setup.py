@@ -8,7 +8,8 @@ requirements = [
     "jsonfield==2.0.2",
     "le_utils",
     "PyPDF2",
-    "whoosh"
+    "whoosh",
+    "django-js-asset==1.2.2"
 ]
 
 setup(
