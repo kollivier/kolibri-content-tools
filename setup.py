@@ -4,7 +4,7 @@ from setuptools import find_packages, setup
 requirements = [
     "beautifulsoup4",
     "django>=1.11",
-    "django-mptt",
+    "django-mptt==0.11.0",
     "jsonfield==2.0.2",
     "le_utils",
     "PyPDF2",
